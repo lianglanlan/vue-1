@@ -45,7 +45,7 @@
                 <tr v-for="(item, index) in search()" :key="index">
                     <td> {{ item.id }} </td>
                     <td> {{ item.name }} </td>
-                    <td> {{ item.ctime }} </td>
+                    <td> {{ item.ctime | dateFormat }} </td>
                     <td><a href="" @click.prevent="del(item.id)">删除</a></td>
                 </tr>
             </tbody>
@@ -89,6 +89,14 @@
             search() {
                 //返回name中包含keywords的数组元素
                 return this.list.filter(item => item.name.indexOf(this.keywords) !== -1)
+            }
+        },
+        filters: {
+            dateFormat(date){
+                const y = date.getFullYear()
+                const m = date.getMonth()+1
+                const d = date.getDate()
+                return `${y}-${m}-${d}`
             }
         }
     })
