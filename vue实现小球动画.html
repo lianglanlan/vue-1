@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <div id="app">`
+    <div id="app">
         <input type="button" value="快到碗里来" @click="flag=!flag">
         <transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
             <div class="ball" v-show="flag"></div>
