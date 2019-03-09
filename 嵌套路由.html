@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <router-link to="/account">Account</router-link>
+        <router-view></router-view>
+    </div>
+    <template id="tmpl">
+        <div>
+            <h1>这是Account组件</h1>
+            <router-link to="/account/login">登陆</router-link>
+            <router-link to="/account/register">注册</router-link>
+            <router-view></router-view>
+        </div>
+    </template>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script>
+        var account = {
+            template: '#tmpl'
+        }
+        var login = {
+            template: '<h1>登录组件</h1>'
+        }
+        var register = {
+            template: '<h1>注册组件</h1>'
+
+        }
+        var router = new VueRouter({
+            routes: [
+                {
+                    path: '/account',
+                    component: account,
+                    children: [
+                        //嵌套路由不需要加/，否则会被当作跟路径处理
+                        { path: 'login', component: login },
+                        { path: 'register', component: register }
+                    ]
+                },
+
+            ]
+        })
+        new Vue({
+            el: '#app',
+            router
+        })
+    </script>
+</body>
+
+</html>
