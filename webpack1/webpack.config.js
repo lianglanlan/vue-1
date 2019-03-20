@@ -10,7 +10,6 @@ module.exports = {
     devServer: {
         open: true,
         port: 3000,
-        contentBase: 'src',
         hot: true
     },
     plugins: [
@@ -23,8 +22,31 @@ module.exports = {
     module: {
         rules: [ //所有第三方模块的匹配规则
             { test: /\.css$/, use: ['style-loader', 'css-loader'] },
-            { test: /\.less/,use:['style-loader', 'css-loader','less-loader']},
-            { test: /\.scss/,use:['style-loader', 'css-loader','sass-loader']},
+            { test: /\.less$/, use: ['style-loader', 'css-loader', 'less-loader'] },
+            { test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
+            {
+                test: /\.(jpg|png|git|bmp|jpeg)$/,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: '18772',
+                            name: '[hash:8]-[name].[ext]'
+                        }
+                    }
+                ]
+            },
+            { test: /\.(ttf|eot|svg|woff|woff2)$/, use: 'url-loader' },
+            {
+                test: /\.js$/,
+                exclude: /(node_modules|bower_components)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env']
+                    }
+                }
+            }
         ]
     }
 }
