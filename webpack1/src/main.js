@@ -13,9 +13,10 @@ $(function () {
     })
 })
 
-// class Person {
-//     static info = {name:'zs',age:20}    //静态属性
-// }
+class Person {
+    static info = {name:'zs',age:20}    //静态属性
+}
 // var p1 = new Person()
 
+console.log(Person.info)
 
