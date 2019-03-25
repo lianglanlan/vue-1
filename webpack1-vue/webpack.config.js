@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
     entry: path.join(__dirname, './src/main.js'),
@@ -18,12 +19,15 @@ module.exports = {
             template: path.join(__dirname, './src/index.html'),
             filename: 'index.html'
         }),
+        new VueLoaderPlugin()
+
     ],
     module: {
         rules: [ //所有第三方模块的匹配规则
             { test: /\.css$/, use: ['style-loader', 'css-loader'] },
             { test: /\.less$/, use: ['style-loader', 'css-loader', 'less-loader'] },
             { test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
+            { test: /\.vue$/, use: ['vue-loader'] },
             {
                 test: /\.(jpg|png|git|bmp|jpeg)$/,
                 use: [
@@ -45,5 +49,10 @@ module.exports = {
                 }
             }
         ]
+    },
+    resolve: {
+        alias: {
+            // "vue$": "vue/dist/vue.js"
+        }
     }
 }
