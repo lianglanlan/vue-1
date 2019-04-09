@@ -1,20 +1,13 @@
-// 入口文件
 import Vue from 'vue'
-import login from './login.vue'
 
+import VueRouter from 'vue-router'
+Vue.use(VueRouter)
+
+import app from './App.vue'
+
+import router from './router.js'
 var vm = new Vue({
     el: '#app',
-    data: {
-        msg: 123
-    },
-    // comments:{
-    //     login
-    // }
-    render(c) {
-        return c(login)
-    }
+    render: c => c(app),
+    router
 })
-
-import m1, { title,content } from './test'
-
-console.log(m1, title,content)

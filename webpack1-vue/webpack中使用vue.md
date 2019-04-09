@@ -74,7 +74,7 @@ var vm = new Vue({
     }
 })
 ```
-终端报错`You may need an appropriate loader to handle this file type`。这是因为webpack无法打包.vue结尾的文件，需要使用vue-loader，安装vue-loader并配置（必须同步安装vue-template-compiler）
+终端报错`You may need an appropriate loader to handle this file type`。这是因为webpack无法打包.vue结尾的文件，需要使用[vue-loader](../vue-loader整理笔记.md)，安装vue-loader并配置（必须同步安装vue-template-compiler）
 ```
 npm i vue-loader vue-template-compiler -D
 ```
