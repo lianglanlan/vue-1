@@ -14,6 +14,9 @@ Vue.component('mybtn', Button)
 //导入bootstrap样式
 import 'bootstrap/dist/css/bootstrap.css'
 
+//引入MUI
+import './lib/mui/css/mui.min.css'
+
 import './css/app.css'
 
 import App from './App.vue'
