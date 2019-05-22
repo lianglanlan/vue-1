@@ -20,6 +20,7 @@ Vue.prototype.$toast = Toast;
 //导入vue-resource
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
+Vue.http.options.root = '/root'
 
 new Vue({
     el: '#app',
