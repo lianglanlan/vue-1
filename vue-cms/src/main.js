@@ -9,21 +9,29 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 import router from './router'
 
-//按需导入mint-ui中的组件
-import { Header,Swipe, SwipeItem, Toast } from 'mint-ui'
+//全部导入
+import Mint from 'mint-ui'
+import 'mint-ui/lib/style.css'
+Vue.use(Mint)
 
-Vue.component('mt-header', Header);
-Vue.component('mt-swipe', Swipe);
-Vue.component('mt-swipe-item', SwipeItem);
-Vue.prototype.$toast = Toast;
+//导入axios
+import axios from 'axios'
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+axios.defaults.baseURL = 'http://rap2api.taobao.org/app/mock/84156'
+Vue.prototype.$http = axios
 
-//导入vue-resource
-import VueResource from 'vue-resource'
-Vue.use(VueResource)
-Vue.http.options.root = '/root'
+//导入缩略图插件
+import VuePreview from 'vue-preview'
+Vue.use(VuePreview)
+
+//导入时间插件,定义全局时间过滤器
+import moment from 'moment'
+Vue.filter('dateFormat', (dataStr, pattern = 'YYYY/MM/DD HH:mm:ss') => {
+    return moment(dataStr).format(pattern)
+})
 
 new Vue({
     el: '#app',
-    render:c=>c(App),
+    render: c => c(App),
     router
 })

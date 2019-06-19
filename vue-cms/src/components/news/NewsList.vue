@@ -1,32 +1,17 @@
 <template>
     <div>
        <ul class="mui-table-view">
-            <li class="mui-table-view-cell mui-media">
-                <a href="javascript:;">
-                    <img class="mui-media-object mui-pull-left" src="http://yuedu.sogou.com/images/user_photo.png">
+            <li class="mui-table-view-cell mui-media" v-for="item in newsList" :key="item.id">
+                <router-link :to="'/home/newsinfo/'+item.id">
+                    <img class="mui-media-object mui-pull-left" :src="item.img_url">
                     <div class="mui-media-body">
-                        <h1>幸福</h1>
-                        <p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+                        <h1>{{item.title}}</h1>
+                        <p class="mui-ellipsis">
+                            <span>发表时间: {{item.add_time | dateFormat}} </span>
+                            <span>点击：{{item.click}} 次</span>
+                        </p>
                     </div>
-                </a>
-            </li>
-            <li class="mui-table-view-cell mui-media">
-                <a href="javascript:;" class="">
-                    <img class="mui-media-object mui-pull-left" src="http://yuedu.sogou.com/images/user_photo.png">
-                    <div class="mui-media-body">
-                        木屋
-                        <p class="mui-ellipsis">想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.</p>
-                    </div>
-                </a>
-            </li>
-            <li class="mui-table-view-cell mui-media">
-                <a href="javascript:;">
-                    <img class="mui-media-object mui-pull-left" src="http://yuedu.sogou.com/images/user_photo.png">
-                    <div class="mui-media-body">
-                        CBD
-                        <p class="mui-ellipsis">烤炉模式的城，到黄昏，如同打翻的调色盘一般.</p>
-                    </div>
-                </a>
+                </router-link>
             </li>
         </ul>
     </div>
@@ -35,12 +20,21 @@
 export default {
     data(){
         return {
-
+            newsList: []
         }
+    },
+    created() {
+        this.getNewsList()
     },
     methods: {
         getNewsList( ){
-            this.$http.get()
+            this.$http.get('example/1558607865243').then(result => {
+                if(result.status === 200){
+                    this.newsList = result.data.message
+                }else {
+                    this.$toast('获取新闻列表失败')
+                }
+            })
         }
     },
 }

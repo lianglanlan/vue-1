@@ -57,7 +57,7 @@ var mui = (function(document, undefined) {
 	 * @param {type} deep
 	 * @returns {unresolved}
 	 */
-	$.extend = function() { //from jquery2
+	$.extend = function () { //from jquery2
 		var options, name, src, copy, copyIsArray, clone,
 			target = arguments[0] || {},
 			i = 1,
@@ -828,7 +828,7 @@ var mui = (function(document, undefined) {
 				}
 			}
 		}
-	});
+	},{ passive: true });
 })(mui, window, document);
 /**
  * fixed trim
@@ -3409,7 +3409,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		}) ? /\b_super\b/ : /.*/;
 
 	var Class = function() {};
-	Class.extend = function(prop) {
+	Class.extend = function classExtend(prop) {
 		var _super = this.prototype;
 		initializing = true;
 		var prototype = new this();
@@ -3437,7 +3437,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		}
 		Class.prototype = prototype;
 		Class.prototype.constructor = Class;
-		Class.extend = arguments.callee;
+		Class.extend = classExtend;
 		return Class;
 	};
 	$.Class = Class;
@@ -3968,7 +3968,8 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 					}
 				}
 			}
-			var isPreventDefault = isReturn = false;
+			var isPreventDefault = false;
+			var isReturn = false
 			var direction = this._getDirectionByAngle(detail.angle);
 			if (detail.direction === 'left' || detail.direction === 'right') {
 				if (this.options.scrollX) {
@@ -4083,6 +4084,8 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			}
 			var time = 0;
 			var easing = '';
+			var momentumX = {}
+			var momentumY = {}
 			// start momentum animation if needed
 			if (this.options.momentum && detail.flickTime < 300) {
 				momentumX = this.hasHorizontalScroll ? this._momentum(this.x, detail.flickDistanceX, detail.flickTime, this.maxScrollX, this.options.bounce ? this.wrapperWidth : 0, this.options.deceleration) : {
@@ -6746,12 +6749,26 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	var SELECTOR_BUTTON = '.' + CLASS_BTN;
 	var overFactor = 0.8;
 	var cell, a;
+	var isMoved=false
+	var isOpened = false
+	var openedActions =false
+	var progress =false
+	var sliderHandle =false
+	var sliderActionLeft =false
+	var sliderActionRight =false
+	var buttonsLeft =false
+	var buttonsRight =false
+	var sliderDirection =false
+	var sliderRequestAnimationFrame =false
 
-	var isMoved = isOpened = openedActions = progress = false;
-	var sliderHandle = sliderActionLeft = sliderActionRight = buttonsLeft = buttonsRight = sliderDirection = sliderRequestAnimationFrame = false;
-	var timer = translateX = lastTranslateX = sliderActionLeftWidth = sliderActionRightWidth = 0;
-
-
+	var timer = 0
+	var translateX = 0
+	var lastTranslateX = 0
+	var sliderActionLeftWidth = 0
+	var sliderActionRightWidth = 0
+	// var isMoved = isOpened = openedActions = progress = false;
+	// var sliderHandle = sliderActionLeft = sliderActionRight = buttonsLeft = buttonsRight = sliderDirection = sliderRequestAnimationFrame = false;
+	// var timer = translateX = lastTranslateX = sliderActionLeftWidth = sliderActionRightWidth = 0;
 
 	var toggleActive = function(isActive) {
 		if (isActive) {

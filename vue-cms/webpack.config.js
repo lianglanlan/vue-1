@@ -43,7 +43,7 @@ module.exports = {
             { test: /\.(ttf|eot|svg|woff|woff2)$/, use: 'url-loader' },
             {
                 test: /\.js$/,
-                exclude: /(node_modules)/,
+                exclude: /(node_modules)|mui\.min\.js/,
                 use: {
                     loader: 'babel-loader',
                 }
