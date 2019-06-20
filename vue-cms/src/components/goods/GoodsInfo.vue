@@ -96,29 +96,40 @@ export default {
       this.$router.push({ name: "goodscomment", params: { id } });
     },
     addToShopCar() {
-      this.ballFlag = !this.ballFlag;
-    },
-    beforeEnter (el) {
-        el.style.transform = 'translate(0,0)'
-    },
-    enter (el,done) {
-        el.offsetWidth
+        this.ballFlag = !this.ballFlag;
+        //拼接出保存到store中car数组的对象
+        const goodsinfo = {
+            id: this.id,
+            count: this.selectedCount,
+            price:this.goodsinfo.sell_price,
+            selected: true
+        }
 
-        //获取小球与徽标在页面中的位置
-        const ballPosition = this.$refs.ball.getBoundingClientRect()
-        const badgePosition = document.getElementById('badge').getBoundingClientRect()
+        this.$store.commit('addTocar',goodsinfo)
+    },
+    beforeEnter(el) {
+      el.style.transform = "translate(0,0)";
+    },
+    enter(el, done) {
+      el.offsetWidth;
 
-        const xDist = badgePosition.left - ballPosition.left
-        const yDist = badgePosition.top - ballPosition.top
-        el.style.transform = `translate(${xDist}px,${yDist}px)`
-        el.style.transition = 'all 1s ease'
-        done()
+      //获取小球与徽标在页面中的位置
+      const ballPosition = this.$refs.ball.getBoundingClientRect();
+      const badgePosition = document
+        .getElementById("badge")
+        .getBoundingClientRect();
+
+      const xDist = badgePosition.left - ballPosition.left;
+      const yDist = badgePosition.top - ballPosition.top;
+      el.style.transform = `translate(${xDist}px,${yDist}px)`;
+      el.style.transition = "all 1s ease";
+      done();
     },
     afterEnter(el) {
-        this.ballFlag = !this.ballFlag
+      this.ballFlag = !this.ballFlag;
     },
     getSelectedCount(count) {
-        this.selectedCount = count
+      this.selectedCount = count;
     }
   },
   components: {
